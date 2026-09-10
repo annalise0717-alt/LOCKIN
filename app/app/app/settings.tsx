@@ -1,0 +1,9 @@
+import { Pressable, ScrollView, Text, View } from 'react-native'
+import { Navigation } from '@/components/Navigation'
+import { Header } from '@/components/Header'
+import { useStore } from '@/lib/store'
+import { colors, styles } from '@/lib/theme'
+export default function Settings() {
+  const { data, setPreferences } = useStore()
+  return <View style={styles.screen}><ScrollView contentContainerStyle={styles.content}><Header eyebrow="YOUR SPACE" title="Settings & privacy." subtitle="Make LOCKIN work for you." />{[['Focus preferences', 'Blocked app preferences are saved for future native integration.'], ['Default session duration', `${data.defaultMinutes} minutes`], ['Notifications', 'On · gentle reminders'], ['Data & privacy', 'Your tasks and progress stay on this device.']].map(([title, description], index) => <Pressable key={title} onPress={() => index === 1 && setPreferences({ defaultMinutes: data.defaultMinutes === 25 ? 45 : 25 })} style={[styles.card, styles.row, { padding: 18, marginBottom: 9 }]}><View style={{ width: 35, height: 35, borderRadius: 18, backgroundColor: colors.pale, alignItems: 'center', justifyContent: 'center' }}><Text>{['◉', '◷', '♧', '▣'][index]}</Text></View><View style={{ flex: 1, marginLeft: 14 }}><Text style={{ color: colors.ink, fontWeight: '600' }}>{title}</Text><Text style={{ color: colors.muted, fontSize: 11, marginTop: 5 }}>{description}</Text></View><Text style={{ color: colors.muted }}>›</Text></Pressable>)}<View style={{ borderWidth: 1, borderColor: colors.line, padding: 17, marginTop: 20 }}><Text style={{ color: colors.ink, fontWeight: '700' }}>Private by design.</Text><Text style={[styles.subtitle, { fontSize: 12, marginTop: 6 }]}>LOCKIN stores your tasks, preferences, and progress locally with AsyncStorage. Nothing is sent to a server.</Text></View></ScrollView><Navigation /></View>
+}
