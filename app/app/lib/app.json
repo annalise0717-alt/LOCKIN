@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "LOCKIN",
+    "slug": "lockin",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "lockin",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F4F5F0"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lockin.focus"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F4F5F0"
+      },
+      "package": "com.lockin.focus"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow LOCKIN to attach proof of progress to a completed session."
+        }
+      ],
+      "expo-asset"
+    ]
+  }
+}
