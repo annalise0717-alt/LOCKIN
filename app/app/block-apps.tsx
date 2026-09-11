@@ -1,0 +1,10 @@
+import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { useRouter } from 'expo-router'
+import { useStore } from '@/lib/store'
+import { colors, styles } from '@/lib/theme'
+const categories = { 'Social': ['Social media', 'Messaging', 'News'], 'Entertainment': ['Video streaming', 'Music', 'Games'], 'Shopping': ['Shopping', 'Food delivery'] }
+export default function BlockApps() {
+  const { data, setPreferences } = useStore(); const router = useRouter()
+  function toggle(app: string) { setPreferences({ blockedApps: data.blockedApps.includes(app) ? data.blockedApps.filter((item) => item !== app) : [...data.blockedApps, app] }) }
+  return <SafeAreaView style={styles.screen}><ScrollView contentContainerStyle={styles.content}><Text style={styles.eyebrow}>FOCUS PREFERENCES</Text><Text style={styles.title}>Choose your distractions.</Text><Text style={[styles.subtitle, { marginTop: 10 }]}>Select any apps you want included in your focus plan. This is saved now; real platform blocking will need native permissions later.</Text>{Object.entries(categories).map(([category, apps]) => <View key={category} style={{ marginTop: 28 }}><Text style={styles.eyebrow}>{category.toUpperCase()}</Text>{apps.map((app) => <Pressable key={app} onPress={() => toggle(app)} style={[styles.card, styles.row, { padding: 15, marginTop: 9, borderColor: data.blockedApps.includes(app) ? colors.lime : colors.line }]}><View style={{ flex: 1 }}><Text style={{ color: colors.ink, fontWeight: '600' }}>{app}</Text><Text style={{ color: colors.muted, fontSize: 11, marginTop: 4 }}>Manual selection</Text></View><View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: data.blockedApps.includes(app) ? colors.lime : 'transparent', borderWidth: 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center' }}><Text>{data.blockedApps.includes(app) ? '✓' : ''}</Text></View></Pressable>)}</View>)}<Pressable style={[styles.button, { marginTop: 30 }]} onPress={() => router.back()}><Text style={styles.buttonText}>SAVE BLOCKING PLAN</Text></Pressable></ScrollView></SafeAreaView>
+}
