@@ -1,0 +1,6 @@
+{
+  "name": "lockin-screen-time",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js"
+}
